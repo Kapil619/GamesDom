@@ -1,22 +1,33 @@
 
+import { useQuery } from 'react-query';
 import { GameQuery } from "../App";
-import useData from "./useData";
+import apiClient from "../services/api-client";
+import { FetchResponse } from '../services/api-client';
 
 
 export interface Platform {
-    id:number;
-    name:string;
-    slug:string;
+    id: number;
+    name: string;
+    slug: string;
 }
 export interface Game {
     id: number;
     name: string;
     background_image: string;
-    parent_platforms: {platform: Platform} [],
+    parent_platforms: { platform: Platform }[],
     metacritic: number
 }
 
-const useGames = (GameQuery: GameQuery) => useData<Game>('/games', {params: {genres: GameQuery.genre?.id, platforms : GameQuery.platform?.id, 
-ordering : GameQuery.sortOrder, search: GameQuery.searchText}}, [GameQuery]);
+const useGames = (GameQuery: GameQuery) =>
+
+    useQuery<FetchResponse<Game>,Error>({
+        queryKey: ['games', GameQuery],
+    queryFn: () => apiClient.get < FetchResponse<Game>>('/games', {
+        params: {
+            genres: GameQuery.genre?.id, parent_platforms: GameQuery.platform?.id,
+            ordering: GameQuery.sortOrder, search: GameQuery.searchText
+        }
+        }).then(res => res.data)
+    });
 
 export default useGames;
