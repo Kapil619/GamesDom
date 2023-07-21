@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
       <QueryClientProvider client={queryClient}>
         <App />
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>
