@@ -11,7 +11,7 @@ export interface Genre {
 
 const useGenres = () =>
   useQuery({
-    queryKey: ["genre"],
+    queryKey: ["genres"],
     queryFn: () =>
       apiClient.get<FetchResponse<Genre>>("/genres").then((res) => res.data),
     staleTime: 24 * 60 * 60 * 1000,

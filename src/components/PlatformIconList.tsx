@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Platform } from "../hooks/usePlatforms";
 import {
   FaWindows,
