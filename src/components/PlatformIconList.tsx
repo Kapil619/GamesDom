@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Platform } from "../entities/Platform";
+import Platform from "../entities/Platform";
 import {
   FaWindows,
   FaPlaystation,
