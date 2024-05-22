@@ -1,7 +1,7 @@
-import { GameQuery } from "../App";
-import APIClient, { FetchResponse } from "../services/api-client";
-import { Platform } from './usePlatforms';
 import { useInfiniteQuery } from 'react-query';
+import APIClient, { FetchResponse } from "../services/api-client";
+import useGameQueryStore from "../store";
+import { Platform } from './usePlatforms';
 
 const apiClient = new APIClient<Game>('/games');
 
@@ -13,9 +13,10 @@ export interface Game {
     metacritic: number
 }
 
-const useGames = (gameQuery: GameQuery) =>
+const useGames = () => {
+    const gameQuery = useGameQueryStore(s => s.gameQuery);
 
-    useInfiniteQuery<FetchResponse<Game>, Error>({
+    return useInfiniteQuery<FetchResponse<Game>, Error>({
         queryKey: ['games', gameQuery],
         queryFn: ({ pageParam = 1 }) => apiClient.getAll({
             params: {
@@ -29,5 +30,8 @@ const useGames = (gameQuery: GameQuery) =>
         },
         staleTime: 24 * 60 * 60 * 1000
     });
+}
+
+
 
 export default useGames;
