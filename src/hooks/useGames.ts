@@ -1,29 +1,29 @@
+import { useInfiniteQuery } from 'react-query';
+import APIClient, { FetchResponse } from "../services/api-client";
+import useGameQueryStore from "../store";
+import Game from '../entities/Game';
 
-import { useQuery } from 'react-query';
-import { GameQuery } from "../App";
-import apiClient from "../services/api-client";
-import { FetchResponse } from '../services/api-client';
-import { Platform } from './usePlatforms';
+const apiClient = new APIClient<Game>('/games');
 
+const useGames = () => {
+    const gameQuery = useGameQueryStore(s => s.gameQuery);
 
-export interface Game {
-    id: number;
-    name: string;
-    background_image: string;
-    parent_platforms: { platform: Platform }[],
-    metacritic: number
+    return useInfiniteQuery<FetchResponse<Game>, Error>({
+        queryKey: ['games', gameQuery],
+        queryFn: ({ pageParam = 1 }) => apiClient.getAll({
+            params: {
+                genres: gameQuery.genreId, parent_platforms: gameQuery.platformId,
+                ordering: gameQuery.sortOrder, search: gameQuery.searchText,
+                page: pageParam
+            },
+        }),
+        getNextPageParam: (lastPage, allPages) => {
+            return lastPage.next ? allPages.length + 1 : undefined;
+        },
+        staleTime: 24 * 60 * 60 * 1000
+    });
 }
 
-const useGames = (GameQuery: GameQuery) =>
 
-    useQuery<FetchResponse<Game>, Error>({
-        queryKey: ['games', GameQuery],
-        queryFn: () => apiClient.get<FetchResponse<Game>>('/games', {
-            params: {
-                genres: GameQuery.genre?.id, parent_platforms: GameQuery.platform?.id,
-                ordering: GameQuery.sortOrder, search: GameQuery.searchText
-            }
-        }).then(res => res.data)
-    });
 
 export default useGames;

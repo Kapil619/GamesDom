@@ -1,4 +1,5 @@
-import { Platform } from "../hooks/usePlatforms";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import Platform from "../entities/Platform";
 import {
   FaWindows,
   FaPlaystation,
