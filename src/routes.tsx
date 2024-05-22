@@ -3,6 +3,7 @@ import { Layout } from "./pages/Layout";
 import { HomePage } from "./pages/HomePage";
 import { GameDetailPage } from "./pages/GameDetailPage";
 import ErrorPage from "./pages/ErrorPage";
+import AboutPage from "./components/About";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "games/:slug", element: <GameDetailPage /> },
+      { path: "/about", element: <AboutPage /> },
     ],
   },
 ]);
