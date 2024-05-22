@@ -2,22 +2,21 @@
 import {
   Box,
   Heading,
-  Text,
-  SimpleGrid,
+  HStack,
   Image,
   Link,
-  VStack,
-  HStack,
   ListItem,
+  SimpleGrid,
+  Text,
   UnorderedList,
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
-  FaTwitter,
-  FaLinkedin,
+  FaGithub,
   FaGlobe,
   FaInstagram,
-  FaGithub,
+  FaLinkedin,
+  FaTwitter,
 } from "react-icons/fa";
 
 const AboutPage = () => {
