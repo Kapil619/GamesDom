@@ -2,11 +2,11 @@ import { Heading } from "@chakra-ui/react";
 import { GameQuery } from "../App";
 
 interface Props {
-  GameQuery: GameQuery;
+  gameQuery: GameQuery;
 }
-export const GameHeading = ({ GameQuery }: Props) => {
-  const heading = `${GameQuery.platform?.name || ""} ${
-    GameQuery.genre?.name || ""
+export const GameHeading = ({ gameQuery }: Props) => {
+  const heading = `${gameQuery.platform?.name || ""} ${
+    gameQuery.genre?.name || ""
   } Games`;
 
   return (
